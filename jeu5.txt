@@ -1,0 +1,216 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+ 
+int a = 1;
+int b = 4;
+ 
+int rand_a_b(int a, int b){
+      return rand()%(b-a) +a;
+}
+ 
+int main(){
+
+  int guerrier=40;
+  int mage=30;
+  int archer=20;
+  int poisonne_m = 0;
+  int poisonne_j = 0;
+  float vie_m = 25;
+  float vie_j = 30;
+  int tour = 100;
+
+
+  printf("PV monstre: %f \n", vie_m);
+  for (tour=100 ; tour>=0 ; tour--){
+
+    int choix_j;
+    int choix_m = rand_a_b(1,4);
+    int pm_j = 30;
+    int pm_m = 30;
+    int pm_archer= 20;
+    int pm_guerrier= 40;
+    int pm_mage= 30;
+    int xp=5;
+    int level_up=10;
+ 
+  if (choix_j == 6){
+ printf("Vous avez choisi la classe mage\n");
+  vie_j = pm_mage;
+ 
+   }
+       if (choix_j == 7){
+ printf("Vous avez choisi la classe guerrier\n");
+  pm_guerrier = pm_j;
+      
+    }
+ 	   if (choix_j == 8){
+ printf("Vous avez choisi la classe archer\n");
+  pm_j = pm_archer;
+ 
+    }
+ 
+    if (poisonne_j == 1){
+      vie_j -= 1;
+    }     
+    
+    if (vie_j <= 0){
+      printf("YOU DIED\n");
+      break;
+    }
+    
+    if (vie_m <= 0){
+
+     printf("Le monstre est mort\n");
+     level_up = level_up+ 5*xp;
+     printf("Vous gagnez 5 xp");
+     printf("Un autre monstre arrive")
+     vie_m = vie_m +10
+     printf("Le monstre est mort\n");
+     level_up = level_up+ 10*xp;
+            printf("Vous gagnez 15 xp");
+   printf("Un autre monstre arrive")
+   vie_m = vie_m +10
+
+      break;
+    }
+
+      }
+ 
+    if (xp >= level_up){
+      vie_j = +5;
+     pm_j = +10;
+
+ 
+   printf("Vous montez 1 niveau\n");
+   printf("Vos stats ont augmenter");
+ 
+    }
+     
+ 
+    if (level_up +1){
+
+   xp = xp*2
+    }
+
+    if (choix_m == 2){
+ 	   printf("Le monstre se protege\n");
+    }
+    
+    else if (choix_m == 1){
+ 	   printf("Le monstre va attaquer\n");
+    }
+ 
+    if (pm_m != 0)
+      if (choix_m == 3){
+ 	     printf("Le monstre va lancer un sort\n");
+      }
+ 
+    scanf("%d", &choix_j);
+    
+    if (choix_j == 1){
+      if (choix_m == 1){
+        vie_m -= 1;
+        vie_j -= 1;
+        printf("Vous avez attaque\nLe monstre a perdu un point de vie\nIl n'a plus que %f points de vie\n", vie_m);
+        printf("Le monstre contre-attaque\nVous perdez un point de vie\nIl vous reste %f PV\n", vie_j);
+      }
+      
+      else if (choix_m == 2){
+        vie_m -= 0.25;
+          printf("Vous avez attaque\nLe monstre a perdu un quart de point de vie\nIl n'a plus que %f points de vie\n", vie_m);
+      }
+ 
+      else if (choix_m == 3 && pm_m != 0){
+        printf("Vous avez attaque\nLe monstre a perdu un point de vie\nIl n'a plus que %f points de vie\n", vie_m);
+        printf("Le monstre lance un sort de poison \nVous etes empoisonne\nVous avez encore %f PV\n", vie_j);
+        poisonne_j = 1;
+        pm_m -= 10;
+      }
+    } 
+    
+    else if (choix_j == 2){
+      if (choix_m == 1){
+        vie_j -= 0.25;
+          printf("Vous n'avez pas attaque\nLe monstre n'a perdu aucun point de vie\nIl a encore %f points de vie\n", vie_m);
+          printf("Le monstre attaque\nVous vous etes protege, vous perdez un quart de point de vie\nIl vous reste %f PV\n", vie_j);
+  
+      }
+      
+      else if (choix_m == 2){
+          printf("Vous n'avez pas attaque");
+          
+          if(poisonne_m==1){
+            printf("\nLe monstre a perdu des PV du au poison\nIl a encore %f points de vie\n", vie_m);
+          }
+          
+          else{
+            printf("\nLe monstre n'a perdu aucun point de vie\nIl a encore %f points de vie\n", vie_m);
+          }
+ 
+          printf("Le monstre se protege \nVous ne perdez aucun point de vie\nVous avez toujours %f PV\n", vie_j);
+      }
+ 
+      else if (choix_m == 3 && pm_m != 0){
+        printf("\nLe monstre n'a perdu aucun point de vie\nIl a encore %f points de vie\n", vie_m);
+        printf("Le monstre lance un sort de poison \nVous etes empoisonne\nVous avez encore %f PV\n", vie_j);
+        poisonne_j = 1;
+        pm_m -= 10;
+      }
+    }
+ 
+    else if (choix_j == 3){
+      pm_j -= 5;
+      
+      if (choix_m == 1){
+        vie_j -= 1;
+        printf("Vous avez lance le sort poison\nLe monstre est empoisonne et perdra un point de vie par tour\nIl a encore %f points de vie\n", vie_m);
+        printf("Le monstre attaque\nVous ne vous etes pas protege, vous perdez un point de vie\nIl vous reste %f PV\n", vie_j);
+        poisonne_m = 1;
+      }
+      
+      else if (choix_m == 2){
+        printf("Vous avez lance le sort poison\nLe monstre est empoisonne et perdra un point de vie par tour\nIl a encore %f points de vie\n", vie_m);
+        printf("Le monstre se protege \nVous ne perdez aucun point de vie\nVous avez toujours %f PV\n", vie_j);
+        poisonne_m = 1;
+      }
+ 
+      else if (choix_m == 3 && pm_m != 0){
+        printf("Vous avez lance le sort poison\nLe monstre est empoisonne et perdra un point de vie par tour\nIl a encore %f points de vie\n", vie_m);
+        printf("Le monstre lance un sort de poison \nVous etes empoisonne\nVous avez encore %f PV\n", vie_j);
+        poisonne_m = 1;
+        poisonne_j = 1;
+        pm_m -= 10;
+      }
+ 
+      printf("Il ne vous reste que %d points de mana\n", pm_j);
+    }
+ 
+    else if (choix_j == 4){
+      pm_j -= 10;
+      
+      if (choix_m == 1){
+        vie_j -= 1;
+        printf("Vous avez lance le sort antidote\nVous retirez les effets du poison\n", vie_m);
+        printf("Le monstre attaque\nVous ne vous etes pas protege, vous perdez un point de vie\nIl vous reste %f PV\n", vie_j);
+        poisonne_j = 0;
+      }
+      
+      else if (choix_m == 2){
+        printf("Vous avez lance le sort antidote\nVous retirez les effets du poison\n", vie_m);
+        printf("Le monstre se protege \nVous ne perdez aucun point de vie\nVous avez toujours %f PV\n", vie_j);
+        poisonne_j = 0;
+      }
+ 
+      else if (choix_m == 3 && pm_m != 0){
+        printf("Vous avez lance le sort antidote\nVous retirez les effets du poison\n", vie_m);
+        printf("Le monstre lance un sort de poison \nC'est inutile vous avez l'antidote\nVous avez encore %f PV\n", vie_j);
+        poisonne_j = 0;
+        pm_m -= 10;
+      }
+ 
+      printf("Il ne vous reste que %d points de mana\n", pm_j);
+    }
+  }
+  return 0;
+}
